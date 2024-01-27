@@ -1,0 +1,32 @@
+-- CreateTable
+CREATE TABLE `Order_product` (
+    `id` INTEGER NOT NULL AUTO_INCREMENT,
+    `qunatity` INTEGER NOT NULL DEFAULT 1,
+
+    PRIMARY KEY (`id`)
+) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
+
+-- CreateTable
+CREATE TABLE `Order` (
+    `id` INTEGER NOT NULL AUTO_INCREMENT,
+    `total_before_discount` INTEGER NOT NULL DEFAULT 0,
+    `discount` INTEGER NOT NULL DEFAULT 0,
+    `delivery_fee` INTEGER NOT NULL DEFAULT 0,
+    `total` INTEGER NOT NULL DEFAULT 0,
+    `created_at` DATETIME(3) NOT NULL DEFAULT CURRENT_TIMESTAMP(3),
+    ` userId_id` INTEGER NOT NULL,
+
+    PRIMARY KEY (`id`)
+) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
+
+-- CreateTable
+CREATE TABLE `Status` (
+    `id` INTEGER NOT NULL AUTO_INCREMENT,
+    `status` ENUM('UNPAID', 'PREPARED', 'SHIPPED', 'DELIVERED', 'CANCELLED') NOT NULL DEFAULT 'UNPAID',
+    `created_at` DATETIME(3) NOT NULL DEFAULT CURRENT_TIMESTAMP(3),
+
+    PRIMARY KEY (`id`)
+) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
+
+-- AddForeignKey
+ALTER TABLE `Order` ADD CONSTRAINT `Order_ userId_id_fkey` FOREIGN KEY (` userId_id`) REFERENCES `User`(`id`) ON DELETE CASCADE ON UPDATE CASCADE;
